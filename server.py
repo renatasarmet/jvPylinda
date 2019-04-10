@@ -28,11 +28,13 @@ while True:                # forever
 	# Adicionando nova mensagem ao grupo
 	dicionario[m.group(2)].append((m.group(1), m.group(3)))
 
-	print("grupo : ", m.group(2), dicionario[m.group(2)][-1][0], " disse ", dicionario[m.group(2)][-1][1])
+	# Exibindo na tela as informações da última mensagem recebida
+	print("grupo", m.group(2), dicionario[m.group(2)][-1][0], "disse:", dicionario[m.group(2)][-1][1])
 	
 
 	# print(m.groups())
-	conn.send(m.group(1).encode()) # return sent data plus an "*"
+	conn.send(m.group(3).encode()) # return sent data plus an "*"
+
 conn.close()               # close the connection
 
 
