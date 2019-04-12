@@ -1,5 +1,6 @@
 from socket  import *
 from constCS import * #-
+from linda.utils import tuple_to_bin
 
 
 # comecando a pensar em um padrao para receber uma lista de tuplas
@@ -21,9 +22,9 @@ if __name__ == "__main__":
             msg = input("?: ")
 
             # Formando a tupla a enviar em formato string
-            msg_send = '("%s","%s","%s")' % (nome, grupo, msg)
+            msg_send = tuple_to_bin((nome, grupo, msg))
 
-            s.send(msg_send.encode())  # send some data
+            s.send(msg_send)  # send some data
 
             data = s.recv(1024)     # receive the response
             print(data)              # print the result
