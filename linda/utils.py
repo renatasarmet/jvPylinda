@@ -10,7 +10,7 @@ def bin_to_tuple(binary_data):
     _pattern = '\(\"(.*)\"\,\"(.*)\"\,\"(.*)\"\)'
     # Separando os valores 1 - nome de quem enviou a mensagem, 2 - nome do grupo, 3 - mensagem enviada
     m = re.search(_pattern,binary_data.decode())
-    return m.groups(1), m.groups(2), m.groups(3)
+    return m.group(1), m.group(2), m.group(3)
 
 def tuple_to_bin(tuple_data):
     """
