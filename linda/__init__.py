@@ -1,10 +1,17 @@
 #-*- coding: utf-8 -*-
 from . import utils
+from socket  import *
+from constCS import * #-
+
+
+s = socket(AF_INET, SOCK_STREAM)
 
 def connect():
 	"""
 		Começa o servidor
 	"""
+	s.connect((HOST, PORT)) # connect to server (block until accepted)
+	
 	print("conectado")
 	pass
 
@@ -46,6 +53,10 @@ class TupleSpace:
 		# Exibindo na tela as informações da última mensagem recebida
 		print("grupo", topic, self.dictionary[topic][-1][0], "disse:", self.dictionary[topic][-1][1])
 
+		# Formando a tupla a enviar em formato string
+		msg_send = utils.tuple_to_bin((publisher, topic, content))
+		s.send(msg_send)  # send some data
+
 		pass
 
 	def set_name(self, new_name):
@@ -53,24 +64,24 @@ class TupleSpace:
 			self.blog_name = new_name
 
 class Universe():
-    def __init__(self):
-        pass
-    
-    def _rd(self, t):
-        """
-            :return: lista/tupla (?) que contem um blog
-        """
-        blog_name, tuplespace_class = t
+	def __init__(self):
+		pass
+	
+	def _rd(self, t):
+		"""
+			:return: lista/tupla (?) que contem um blog
+		"""
+		blog_name, tuplespace_class = t
 
-        if tuplespace_class == TupleSpace:
-            tuplespace = tuplespace_class(blog_name=blog_name)
+		if tuplespace_class == TupleSpace:
+			tuplespace = tuplespace_class(blog_name=blog_name)
 
-        return "", tuplespace
+		return "", tuplespace
 
-    def _out(self, t):
-        blog_name, tuplespace = t
-        tuplespace.set_name(blog_name)
-        pass
+	def _out(self, t):
+		blog_name, tuplespace = t
+		tuplespace.set_name(blog_name)
+		pass
 
 # Universo
 universe = Universe()

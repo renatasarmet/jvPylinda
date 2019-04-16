@@ -17,21 +17,24 @@ while True:                # forever
 	if not data: break       # stop if client stopped
 
 	# Separando os valores 1 - nome de quem enviou a mensagem, 2 - nome do grupo, 3 - mensagem enviada
-	(nome, grupo, mensagem) = bin_to_tuple(data)
+	matches = bin_to_tuple(data)
 
-	# Se o grupo é novo
-	if grupo not in dicionario.keys():
-		dicionario[grupo] = []
+	for match in matches:
+		(nome, grupo, mensagem) = match
 
-	# Adicionando nova mensagem ao grupo
-	dicionario[grupo].append((nome, mensagem))
+		# Se o grupo é novo
+		if grupo not in dicionario.keys():
+			dicionario[grupo] = []
 
-	# Exibindo na tela as informações da última mensagem recebida
-	print("grupo", grupo, dicionario[grupo][-1][0], "disse:", dicionario[grupo][-1][1])
-	
+		# Adicionando nova mensagem ao grupo
+		dicionario[grupo].append((nome, mensagem))
 
-	# print(m.groups())
-	conn.send(mensagem.encode()) # return sent data plus an "*"
+		# Exibindo na tela as informações da última mensagem recebida
+		print("grupo", grupo, dicionario[grupo][-1][0], "disse:", dicionario[grupo][-1][1])
+		
+
+		# print(m.groups())
+		conn.send(mensagem.encode()) # return sent data plus an "*"
 
 conn.close()               # close the connection
 

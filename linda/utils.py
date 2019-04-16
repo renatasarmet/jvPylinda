@@ -7,10 +7,11 @@ def bin_to_tuple(binary_data):
         :return: tupla (nome, grupo, mensagem)
     """
     # Definição do padrão da expressão regular
-    _pattern = '\(\"(.*)\"\,\"(.*)\"\,\"(.*)\"\)'
+    _pattern = '\(\"([^"]*)\"\,\"([^"]*)\"\,\"([^"]*)\"\)'
     # Separando os valores 1 - nome de quem enviou a mensagem, 2 - nome do grupo, 3 - mensagem enviada
-    m = re.search(_pattern,binary_data.decode())
-    return m.group(1), m.group(2), m.group(3)
+    m = re.findall(_pattern,binary_data.decode())
+
+    return m
 
 def tuple_to_bin(tuple_data):
     """
@@ -20,4 +21,3 @@ def tuple_to_bin(tuple_data):
     """
     _msg_send = '("%s","%s","%s")' % (tuple_data[0], tuple_data[1], tuple_data[2])
     return _msg_send.encode()
-
