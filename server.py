@@ -34,7 +34,7 @@ while True:                # forever
 		
 
 		# print(m.groups())
-		conn.send(mensagem.encode()) # return sent data plus an "*"
+		# conn.send(mensagem.encode()) # return sent data plus an "*"
 
 conn.close()               # close the connection
 

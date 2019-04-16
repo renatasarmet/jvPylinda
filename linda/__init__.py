@@ -15,6 +15,13 @@ def connect():
 	print("conectado")
 	pass
 
+def close_connection():
+	"""
+		Encerra o servidor
+	"""
+	s.close()
+	print("desconectado")
+
 class TupleSpace:
 
 	# Marcar ate qual mensagem a pessoa X leu
