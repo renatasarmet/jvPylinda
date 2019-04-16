@@ -21,8 +21,8 @@ def __del__():
 	"""
 		Encerra o servidor
 	"""
-	s.close()
 	print("desconectado")
+	s.close()
 
 
 class TupleSpace:
@@ -40,8 +40,29 @@ class TupleSpace:
 		self.dictionary = {}
 
 
-	def _rd(self, publisher, topic, type_return):
-		pass
+	def _rd(self, t):
+		"""
+			:param publisher: nome do cliente que publicou a mensagem que sera lida
+			:param topic: nome do grupo do qual quer ler a mensagem
+			:param type_return: tipo da mensagem a ser lida
+			:return:
+		"""
+		publisher, topic, type_return = t
+
+		# Se o grupo existe
+		if topic in self.dictionary:
+			for tupla in self.dictionary[topic]:
+				# Pega a primeira mensagem que encontra daquele autor naquele topico
+				if tupla[0] == publisher:
+					mensagem = tupla[1]
+					return mensagem
+
+			return publisher + " nao publicou nesse grupo"
+		else:
+			return "Grupo nao existe!!"
+
+		return("opa")
+
 
 	def _out(self, t):
 		"""
@@ -61,7 +82,7 @@ class TupleSpace:
 
 
 		# Exibindo na tela as informações da última mensagem recebida
-		print("grupo", topic, self.dictionary[topic][-1][0], "disse:", self.dictionary[topic][-1][1])
+		# print("grupo", topic, self.dictionary[topic][-1][0], "disse:", self.dictionary[topic][-1][1])
 
 		# Formando a tupla a enviar em formato string
 		msg_send = utils.tuple_to_bin((publisher, topic, content))
