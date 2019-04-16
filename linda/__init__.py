@@ -6,6 +6,7 @@ from constCS import * #-
 
 s = socket(AF_INET, SOCK_STREAM)
 
+
 def connect():
 	"""
 		Começa o servidor
@@ -15,12 +16,14 @@ def connect():
 	print("conectado")
 	pass
 
-def close_connection():
+
+def __del__():
 	"""
 		Encerra o servidor
 	"""
 	s.close()
 	print("desconectado")
+
 
 class TupleSpace:
 
