@@ -1,4 +1,5 @@
 import linda
+from time import sleep
 linda.connect()
 
 blog = linda.TupleSpace()
@@ -10,3 +11,4 @@ blog._out(("bob","distsys","I am studying chap 2"))
 blog._out(("bob","distsys","The linda example's pretty simple"))
 blog._out(("bob","gtcn","Cool book!"))
 
+sleep(10)

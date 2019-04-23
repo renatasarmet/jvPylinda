@@ -13,10 +13,10 @@ blog._out(("bob","distsys","The linda example's pretty simple"))
 blog._out(("bob","gtcn","Cool book!"))
 
 t1 = blog._rd(("bob","distsys",str))
-t2 = blog._rd(("alice","gtcn",str))
-t3 = blog._rd(("bob","gtcn",str))
+# t2 = blog._rd(("alice","gtcn",str))
+# t3 = blog._rd(("bob","gtcn",str))
 
 print(t1)
-print(t2)
-print(t3)
+# print(t2)
+# print(t3)
 

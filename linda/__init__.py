@@ -49,19 +49,18 @@ class TupleSpace:
 		"""
 		publisher, topic, type_return = t
 
-		# Se o grupo existe
-		if topic in self.dictionary:
-			for tupla in self.dictionary[topic]:
-				# Pega a primeira mensagem que encontra daquele autor naquele topico
-				if tupla[0] == publisher:
-					mensagem = tupla[1]
-					return mensagem
+		# Formando a tupla a enviar em formato string
+		msg_send = utils.tuple_to_bin((publisher, topic, type_return), "rd")
+		s.send(msg_send)
+		print(s.recv(4096))
+		tuple_list_bin = s.recv(4096)
+		tuple_list = utils.bin_to_tuple(tuple_list_bin, has_op=False)
 
-			return publisher + " nao publicou nesse grupo"
+		if tuple_list:
+			print(tuple_list)
+			return tuple_list
 		else:
-			return "Grupo nao existe!!"
-
-		return("opa")
+			return publisher + " nao publicou nesse grupo ou " + topic + " nao existe"
 
 
 	def _out(self, t):
@@ -73,22 +72,13 @@ class TupleSpace:
 		"""
 		publisher, topic, content = t
 
-		# Se o grupo é novo
-		if topic not in self.dictionary:
-			self.dictionary[topic] = []
-
-		# Adicionando nova mensagem ao grupo
-		self.dictionary[topic].append((publisher, content))
-
-
 		# Exibindo na tela as informações da última mensagem recebida
 		# print("grupo", topic, self.dictionary[topic][-1][0], "disse:", self.dictionary[topic][-1][1])
 
 		# Formando a tupla a enviar em formato string
-		msg_send = utils.tuple_to_bin((publisher, topic, content))
+		msg_send = utils.tuple_to_bin((publisher, topic, content), "out")
 		s.send(msg_send)  # send some data
 
-		pass
 
 	def set_name(self, new_name):
 		if new_name or new_name is not None:
