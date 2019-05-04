@@ -1,5 +1,4 @@
 import linda
-
 linda.connect()
 
 # Exemplo de arquivo que escreve e le do tuplespace
@@ -16,6 +15,11 @@ blog._out(("bob","gtcn","Cool book!"))
 t1 = blog._rd(("bob","distsys",str))
 # t2 = blog._rd(("alice","gtcn",str))
 # t3 = blog._rd(("bob","gtcn",str))
+print(t1)
+
+blog._in(("bob","distsys","I am studying chap 2"))
+t1 = blog._rd(("bob","distsys",str))
+
 
 print(t1)
 # print(t2)

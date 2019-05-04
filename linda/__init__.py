@@ -2,20 +2,23 @@
 from . import utils
 from socket  import *
 from constCS import * #-
+import atexit
 
 
 s = socket(AF_INET, SOCK_STREAM)
-
 
 def connect():
 	"""
 		Começa o servidor
 	"""
 	s.connect((HOST, PORT)) # connect to server (block until accepted)
-	
 	print("conectado")
+	atexit.register(exit_handler)
 	pass
 
+def exit_handler():
+    print("desconectado")
+    s.close()
 
 def __del__():
 	"""
@@ -48,25 +51,39 @@ class TupleSpace:
 			:return:
 		"""
 		publisher, topic, type_return = t
-
 		# Formando a tupla a enviar em formato string
 		msg_send = utils.tuple_to_bin((publisher, topic, type_return), "rd")
 		s.send(msg_send)
-		tuple_list_bin = s.recv(4096)
+		tuple_list_bin = b''
+		r = b''
+		while r.decode() != "." :
+			tuple_list_bin+=r
+			r = s.recv(1)
+			print(r.decode())
 		tuple_list = utils.bin_to_tuple(tuple_list_bin, has_op=False)
-
 		if tuple_list:
 			print(tuple_list)
 			return tuple_list
 		else:
 			return publisher + " nao publicou nesse grupo ou " + topic + " nao existe"
-
+    
+	def _in(self, t):
+		"""
+			:param publisher: nome do cliente que publicou a mensagem que sera lida
+			:param topic: nome do grupo do qual quer ler a mensagem
+			:param type_return: tipo da mensagem a ser lida
+			:return:
+		"""
+		publisher, topic, type_return = t
+		# Formando a tupla a enviar em formato string
+		msg_send = utils.tuple_to_bin((publisher, topic, type_return), "in")
+		s.send(msg_send)
 
 	def _out(self, t):
 		"""
 			:param publisher: nome do cliente que envia a mensagem
 			:param topic: nome do grupo para qual envia a mensagem
-			:param content: mensagem
+			:param content: mensagem 
 			:return:
 		"""
 		publisher, topic, content = t
