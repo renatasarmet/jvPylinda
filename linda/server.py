@@ -37,9 +37,9 @@ class ServerThread(Thread):
         while True:
             self.sck.listen(1)
             (self.conn, self.addr) = self.sck.accept()  # returns new socket and self.addr. client 
-            print("Cliente conectado.")
+            print("Client conected.")
             start_new_thread(self.threaded, (self.conn,)) 
-            print("Thread criada para usuario")
+            print("Thread created for user")
 
     def response_out(self, tuple):
         self.lock.acquire()
@@ -67,6 +67,8 @@ class ServerThread(Thread):
                     # Pega a primeira mensagem que encontra daquele autor naquele topico
                     if tpl[0] == publisher:
                         tuples_to_send.append((tpl[0],topic,tpl[1]))
+
+
             if(len(tuples_to_send) != 0):
                 break
             else:
@@ -92,7 +94,7 @@ class ServerThread(Thread):
                 for x in range(len(vetor)):
                     if vetor[x] == (publisher,content):
                         del(vetor[x])
-                        print("deletado")
+                        print("Deleted message: '{}' from {} at {} ".format(content,publisher,topic))
                         found = True
                         if(len(vetor) == 0):
                             del(self.dictionary[topic])

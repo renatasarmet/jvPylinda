@@ -1,1 +1,0 @@
-# TODO: no futuro seria legal tirar as classes do init e trazer para ca
