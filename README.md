@@ -1,16 +1,27 @@
-# Instrutions
-Distributed Systems Project 1
+# Distributed Systems Project 1
 
-## Before you begin,
-adjust the server host in constCS.py and make sure everyone is using the same port.
+_Publish-subscribe_ model
+---
 
-#### IMPORTANT: Files inside the linda folder should not be run directly.
+## Instruções
 
-## On the server side, 
-run the server.py file that is in the root folder.
+### Before you begin
+Adjust the server host in `constCS.py` and make sure everyone is using the same port.
 
-## On the client side, 
-run any example that is in the root folder. You can create a new one containing the information you prefer. If you choose to create, be sure to import linda and use the instructions in the appropriate format.
+#### **WARNING:** Files inside the linda folder should not be run directly.
 
-## To make life easier, 
-the example_all_op.py file containing the out, rd, and in statements was created to demonstrate all operations.
+### On the server side 
+Run the `server.py` file that is in the root folder.
+
+```bash
+python server.py
+```
+
+### On the client side 
+Run any example that is in the root folder (`alice-src`, `bob-src`, `chuck-src`). You can create a new one containing the information you prefer. If you choose to create, be sure to import linda and use the instructions in the appropriate format.
+
+### One example to rule them all
+The `example_all_op.py` file containing the `out`, `rd`, and `in` statements was created to demonstrate all operations.
+```bash
+python example_all_op.py
+```
